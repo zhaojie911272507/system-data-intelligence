@@ -1,4 +1,4 @@
-# 🧠 skill-data-intelligence
+# 🧠 system-data-Intelligence
 
 > A professional **Cursor Agent Skill** for system-level file operations, deep data analysis, and professional data visualization.
 
@@ -25,7 +25,7 @@ This skill equips any AI agent with three tightly integrated superpowers:
 
 ---
 
-## 🤖 AI Agent 兴容性
+## 🤖 AI Agent 兼容性
 
 本项目可供任意 AI Agent 学习和使用：
 
@@ -43,7 +43,7 @@ This skill equips any AI agent with three tightly integrated superpowers:
 ## 🗂️ Repository Structure
 
 ```
-skill-data-intelligence/
+system-data-Intelligence/
 ├── SKILL.md                     ← Cursor skill entry point (≤500 lines)
 ├── AGENTS.md                    ← Universal AI agent instructions
 ├── references/
@@ -70,9 +70,9 @@ skill-data-intelligence/
 ### Cursor (Personal Skill)
 
 ```bash
-mkdir -p ~/.cursor/skills/data-intelligence
-git clone https://github.com/zhaojie911272507/cursor-skill-data-intelligence.git \
-  ~/.cursor/skills/data-intelligence
+mkdir -p ~/.cursor/skills/system-data-intelligence
+git clone https://github.com/zhaojie911272507/system-data-Intelligence.git \
+  ~/.cursor/skills/system-data-intelligence
 ```
 
 ### OpenClaw / Claude / Other Agents
