@@ -1,4 +1,4 @@
-# 🧠 cursor-skill-data-intelligence
+# 🧠 sklls-data-intelligence
 
 > A professional **Cursor Agent Skill** for system-level file operations, deep data analysis, and professional data visualization.
 
@@ -25,7 +25,7 @@ This Cursor Agent Skill equips the AI with three tightly integrated superpowers:
 ## 🗂️ Repository Structure
 
 ```
-cursor-skill-data-intelligence/
+sklls-data-intelligence/
 ├── SKILL.md                     ← Cursor skill entry point (≤500 lines)
 ├── references/
 │   ├── windows-api.md           ← Windows COM / PowerShell reference
@@ -140,7 +140,3 @@ outputs/
 ## 📄 License
 
 MIT License — feel free to use, modify, and distribute.
-
----
-
-*Built with the Vibe Coding Prompt methodology | 2026-03*
