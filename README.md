@@ -3,22 +3,40 @@
 > A professional **Cursor Agent Skill** for system-level file operations, deep data analysis, and professional data visualization.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS-blue)](#)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](#)
 [![Cursor Skill](https://img.shields.io/badge/Cursor-Agent%20Skill-purple)](#)
+[![Agent Compatible](https://img.shields.io/badge/AGENTS.md-compatible-green)](#)
 
 ---
 
 ## 📦 What This Skill Does
 
-This Cursor Agent Skill equips the AI with three tightly integrated superpowers:
+This skill equips any AI agent with three tightly integrated superpowers:
 
 | Capability | Technologies |
 |---|---|
-| 🔧 **System File Access** | win32com, xlwings, AppleScript, openpyxl, python-docx |
+| 🔧 **System File Access** | win32com (Windows), xlwings (macOS), openpyxl/LibreOffice (Linux) |
 | 📊 **Deep Data Analysis** | pandas, numpy, scipy, statsmodels |
 | 🎨 **Professional Visualization** | Plotly (interactive), Matplotlib (report-quality) |
 
 **Supported file formats:** `.xlsx` `.xls` `.xlsm` `.et` `.docx` `.doc` `.wps` `.txt` `.md` `.rtz` `.csv` `.json`
+
+**Supported OS:** Windows / macOS / Linux
+
+---
+
+## 🤖 AI Agent 兴容性
+
+本项目可供任意 AI Agent 学习和使用：
+
+| Agent | 接入方式 |
+|---|---|
+| **Cursor** | 将项目复制到 `~/.cursor/skills/` 即可自动加载 |
+| **OpenClaw / Claude** | 读取 [AGENTS.md](AGENTS.md) 作为系统提示词 |
+| **GPT / 其他** | 将 [AGENTS.md](AGENTS.md) 内容粘贴到 System Prompt |
+| **对话模式** | 直接将 [SKILL.md](SKILL.md) 内容作为提示词输入 |
+
+核心规范文件：**[AGENTS.md](AGENTS.md)**
 
 ---
 
@@ -27,16 +45,18 @@ This Cursor Agent Skill equips the AI with three tightly integrated superpowers:
 ```
 skill-data-intelligence/
 ├── SKILL.md                     ← Cursor skill entry point (≤500 lines)
+├── AGENTS.md                    ← Universal AI agent instructions
 ├── references/
 │   ├── windows-api.md           ← Windows COM / PowerShell reference
 │   ├── macos-api.md             ← macOS xlwings / AppleScript reference
+│   ├── linux-api.md             ← Linux openpyxl / LibreOffice reference
 │   ├── file-formats.md          ← Excel / WPS / Word / RTZ format guide
 │   └── viz-patterns.md          ← Chart selection & styling reference
 ├── scripts/
 │   ├── win_excel_reader.py      ← Windows COM Excel reader
 │   ├── mac_excel_reader.py      ← macOS xlwings Excel reader
 │   ├── wps_extractor.py         ← WPS Spreadsheet & Writer extractor
-│   ├── doc_parser.py            ← Word / TXT / Markdown / RTZ parser
+│   ├── doc_parser.py            ← Universal parser (all platforms)
 │   ├── deep_analyzer.py         ← Full data analysis engine
 │   └── viz_engine.py            ← Plotly + Matplotlib visualization engine
 ├── requirements.txt
@@ -47,31 +67,33 @@ skill-data-intelligence/
 
 ## 🚀 Installation
 
-### Personal Skill (available across all projects)
+### Cursor (Personal Skill)
 
 ```bash
 mkdir -p ~/.cursor/skills/data-intelligence
-cp -r . ~/.cursor/skills/data-intelligence/
+git clone https://github.com/zhaojie911272507/cursor-skill-data-intelligence.git \
+  ~/.cursor/skills/data-intelligence
 ```
 
-### Project Skill (shared with team)
+### OpenClaw / Claude / Other Agents
 
-```bash
-mkdir -p .cursor/skills/data-intelligence
-cp -r . .cursor/skills/data-intelligence/
-```
+将 [AGENTS.md](AGENTS.md) 中的内容作为系统提示词输入到对话界面。
 
 ### Python Dependencies
 
 ```bash
-# Core (all platforms)
-pip install pandas numpy scipy statsmodels plotly matplotlib openpyxl python-docx
+# 全平台通用
+pip install pandas numpy scipy statsmodels plotly matplotlib openpyxl python-docx chardet kaleido
 
-# Windows only
+# Windows
 pip install pywin32
 
-# macOS only
+# macOS
 pip install xlwings
+
+# Linux
+pip install pdfplumber
+sudo apt install libreoffice-nogui fonts-noto-cjk
 ```
 
 ---
@@ -93,18 +115,20 @@ The agent will **automatically apply** this skill when you say:
 ## 🔄 Workflow Example
 
 ```python
-# The agent orchestrates all three capabilities automatically:
+import platform
+from scripts.doc_parser import detect_and_load
+from scripts.deep_analyzer import DeepAnalyzer
+from scripts.viz_engine import create_dashboard, export_viz
 
-# Step 1: System file access
-df = read_excel_mac("/path/to/sales.xlsx")   # or read_excel_via_com() on Windows
+# Auto-detect OS and load file
+df = detect_and_load("/path/to/sales.xlsx")
 
-# Step 2: Deep analysis
-analyzer = DeepAnalyzer(df)
-report = analyzer.run_full_analysis()
+# Deep analysis
+report = DeepAnalyzer(df).run_full_analysis()
 
-# Step 3: Visualization
+# Visualization
 fig = create_dashboard(report, title="Sales Intelligence Dashboard")
-export_viz(fig, "output/sales_report", formats=["html", "png"])
+export_viz(fig, "outputs/sales_report", formats=["html", "png"])
 ```
 
 ---
@@ -116,14 +140,9 @@ Every analysis produces:
 ```
 outputs/
 ├── report_YYYYMMDD_HHMMSS.html   ← Interactive full report
-├── charts/
-│   ├── overview.png
-│   ├── trend.png
-│   └── distribution.png
-├── data/
-│   ├── processed_data.csv
-│   └── analysis_result.json
-└── summary.md                     ← Key insights in plain text
+├── report_YYYYMMDD_HHMMSS.png    ← Static report image
+├── analysis_result.json          ← Structured analysis data
+└── summary.md                     ← Key insights (≤5 lines)
 ```
 
 ---
@@ -132,8 +151,10 @@ outputs/
 
 - [Windows API Reference](references/windows-api.md)
 - [macOS API Reference](references/macos-api.md)
+- [Linux API Reference](references/linux-api.md)
 - [File Formats Guide](references/file-formats.md)
 - [Visualization Patterns](references/viz-patterns.md)
+- [Universal Agent Instructions](AGENTS.md)
 
 ---
 

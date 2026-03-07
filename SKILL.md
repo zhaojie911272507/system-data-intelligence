@@ -27,7 +27,8 @@ description: >
 用户任务
   ├─ 涉及文件/应用操作？
   │    ├─ Windows → 走 [WIN-PATH]
-  │    └─ macOS   → 走 [MAC-PATH]
+  │    ├─ macOS   → 走 [MAC-PATH]
+  │    └─ Linux   → 走 [LINUX-PATH]
   ├─ 纯数据分析（已有数据）？→ 走 [ANALYSIS-PATH]
   └─ 数据可视化？→ 走 [VIZ-PATH]
 ```
@@ -81,6 +82,36 @@ description: >
 - 提示用户在「系统设置 → 隐私与安全性 → 辅助功能」开启权限
 
 > 详细 API 手册 → [references/macos-api.md](references/macos-api.md)
+
+---
+
+## [LINUX-PATH] Linux 系统接口调用
+
+### 优先级顺序
+1. **openpyxl / python-docx**（Excel/Word 首选，无需应用程序）
+2. **LibreOffice headless**（老格式 .doc/.xls 转换）
+3. **pandas + xlrd**（旧版 Excel 离线解析）
+4. **pdfplumber / pymupdf**（PDF 提取）
+
+### Excel / CSV 数据
+```python
+# 执行: python scripts/doc_parser.py <filepath>
+# 支持 .xlsx .xls .xlsm .csv （无需 Office）
+```
+
+### 老格式转换（.doc / .xls）
+```bash
+# LibreOffice headless 转换为现代格式
+libreoffice --headless --convert-to xlsx input.xls --outdir /tmp/
+libreoffice --headless --convert-to docx input.doc --outdir /tmp/
+```
+
+### 关键注意点
+- Linux 无 COM/AppleScript，一律用 Python 库离线解析
+- 老格式文件先用 LibreOffice headless 转换再读取
+- 中文内容需要安装 CJK 字体：`sudo apt install fonts-noto-cjk`
+
+> 详细 API 手册 → [references/linux-api.md](references/linux-api.md)
 
 ---
 
@@ -161,7 +192,7 @@ df = detect_and_load("/path/to/any/file")
 
 ---
 
-## 💡 Vibe Coding 心法
+## 💡 心法
 
 > **不要问用户想要什么格式——直接给最好的那个。**
 > 收到文件就分析，分析完就可视化，可视化完就生成报告。
