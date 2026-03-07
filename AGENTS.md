@@ -137,7 +137,7 @@ sudo apt install libreoffice-nogui fonts-noto-cjk  # LibreOffice + 中文字体
 
 | 文件 | 内容 |
 |---|---|
-| [SKILL.md](SKILL.md) | Cursor 专用 Skill 入口，含决策树 |
+| [SKILL.md](SKILL.md) | System Agent Skill 入口，含决策树 |
 | [references/windows-api.md](references/windows-api.md) | Windows COM / PowerShell 详细手册 |
 | [references/macos-api.md](references/macos-api.md) | macOS xlwings / AppleScript 详细手册 |
 | [references/linux-api.md](references/linux-api.md) | Linux openpyxl / LibreOffice 详细手册 |

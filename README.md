@@ -1,10 +1,10 @@
 # 🧠 system-data-Intelligence
 
-> A professional **Cursor Agent Skill** for system-level file operations, deep data analysis, and professional data visualization.
+> A professional **System Agent Skill** for system-level file operations, deep data analysis, and professional data visualization.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](#)
-[![Cursor Skill](https://img.shields.io/badge/Cursor-Agent%20Skill-purple)](#)
+[![System Skill](https://img.shields.io/badge/System-Agent%20Skill-purple)](#)
 [![Agent Compatible](https://img.shields.io/badge/AGENTS.md-compatible-green)](#)
 
 ---
@@ -44,7 +44,7 @@ This skill equips any AI agent with three tightly integrated superpowers:
 
 ```
 system-data-Intelligence/
-├── SKILL.md                     ← Cursor skill entry point (≤500 lines)
+├── SKILL.md                     ← System Agent Skill entry point (≤500 lines)
 ├── AGENTS.md                    ← Universal AI agent instructions
 ├── references/
 │   ├── windows-api.md           ← Windows COM / PowerShell reference
