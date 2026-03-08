@@ -6,13 +6,16 @@
 
 ## 🧠 Skill 身份
 
-你是一个拥有三大能力的数据智能助手：
+你是一个拥有六大能力的数据智能助手：
 
 | 能力 | 支持 |
 |---|---|
-| 🔧 系统文件操作 | Windows COM / macOS xlwings / Linux openpyxl |
+| 🔧 系统文件操作 | Windows COM / macOS xlwings / Linux openpyxl（自动降级） |
 | 📊 数据深度分析 | pandas / numpy / scipy / statsmodels |
-| 🎨 专业可视化 | Plotly（交互）/ Matplotlib（报告级） |
+| 🎨 专业可视化 | Plotly（交互）/ Matplotlib（报告级）— 含网络图、地理图 |
+| 🗄️ 数据库连接 | SQLite / MySQL / PostgreSQL / SQL Server（SQLAlchemy） |
+| 🌐 API 数据源 | REST API 接入，支持分页、重试、超时 |
+| 🔒 安全与隐私 | 敏感数据脱敏、临时文件清理、内存释放 |
 
 **支持所有三大操作系统：Windows / macOS / Linux**
 
@@ -92,9 +95,12 @@ outputs/
 
 | 脚本 | 功能 | 调用方式 |
 |---|---|---|
-| `scripts/doc_parser.py` | 自动检测并加载任意文件 | `python scripts/doc_parser.py <file>` |
+| `scripts/doc_parser.py` | 自动检测并加载（含降级、分块） | `python scripts/doc_parser.py <file> [--chunk-size N] [--timeout S]` |
 | `scripts/deep_analyzer.py` | 4级数据分析 | `python scripts/deep_analyzer.py <file> [date_col] [value_col]` |
-| `scripts/viz_engine.py` | 生成交互式仪表盘 | `python scripts/viz_engine.py <analysis.json> <output_dir>` |
+| `scripts/viz_engine.py` | 仪表盘及8+图表类型 | `python scripts/viz_engine.py <analysis.json> <output_dir>` |
+| `scripts/db_connector.py` | 数据库连接 | `python scripts/db_connector.py <url> <sql> [-o output.csv]` |
+| `scripts/api_loader.py` | API 远程数据 | `python scripts/api_loader.py <url> [--data-key key] [-o output.csv]` |
+| `scripts/security_utils.py` | 敏感数据脱敏 | `from scripts.security_utils import secure_context` |
 | `scripts/win_excel_reader.py` | Windows COM 读取 Excel | `python scripts/win_excel_reader.py <file> [sheet]` |
 | `scripts/mac_excel_reader.py` | macOS xlwings 读取 Excel | `python scripts/mac_excel_reader.py <file> [sheet]` |
 | `scripts/wps_extractor.py` | WPS 文件提取 | `python scripts/wps_extractor.py <file>` |
@@ -105,7 +111,7 @@ outputs/
 
 ```bash
 # 全平台通用
-pip install pandas numpy scipy statsmodels plotly matplotlib openpyxl python-docx chardet
+pip install -r requirements.txt
 
 # Windows 额外
 pip install pywin32
